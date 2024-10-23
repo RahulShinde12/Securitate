@@ -60,7 +60,7 @@ public class SosActivity extends AppCompatActivity {
         // Creating object of our custom adapter class
         contactAdapter = new ContactSOSAdapter(SosActivity.this, db.readSosContact());
 
-
+         
 
 
 
@@ -75,7 +75,7 @@ public class SosActivity extends AppCompatActivity {
                     final EditText contactNumberET = new EditText(SosActivity.this);
 
                     contactNameET.setHint("Contact name");  //editbox1 hint
-
+      
                     contactNumberET.setHint("Contact Number");  //editbox2 hint
                     contactNumberET.setInputType(InputType.TYPE_CLASS_PHONE);
                     contactNumberET.setText("+91");
@@ -97,8 +97,18 @@ public class SosActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             String Cname = contactNameET.getText().toString();
+                        
                             String Cnumber = contactNumberET.getText().toString();
 
+                            
+ //Problem: When adding a contact, there’s no validation for an empty name or incorrect phone number.
+  Fix: Add basic validation before inserting the contact.//
+ if (Cname.isEmpty() || Cnumber.isEmpty()) {
+    Toast.makeText(SosActivity.this, "Please enter valid contact details", Toast.LENGTH_SHORT).show();
+    return;
+}
+
+ 
                             // Creating object of contact
                             Contact contact1 = new Contact(Cname, Cnumber);
 
